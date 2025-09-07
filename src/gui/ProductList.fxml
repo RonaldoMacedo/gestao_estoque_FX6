@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductListController">
    <children>
       <Label prefWidth="600.0" text="Produtos cadastrados">
          <font>
@@ -21,18 +21,18 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" text="Novo" />
-            <Button mnemonicParsing="false" text="Atualizar" />
+          <Button fx:id="btNovo" mnemonicParsing="false" onAction="#onBtNovoAction" text="Novo" />
+            <Button fx:id="btAtualizar" mnemonicParsing="false" text="Atualizar" />
         </items>
       </ToolBar>
-      <TableView prefHeight="400.0" prefWidth="600.0">
+      <TableView fx:id="tableViewProduct" prefHeight="400.0" prefWidth="600.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Código" />
-          <TableColumn prefWidth="152.79998779296875" text="Descrição interna" />
-            <TableColumn prefWidth="121.60003662109375" text="Data de cadastro" />
-            <TableColumn prefWidth="58.39996337890625" text="Grupo" />
-            <TableColumn prefWidth="110.39996337890625" text="Situação" />
-            <TableColumn prefWidth="80.80010986328125" text="Saldo" />
+          <TableColumn fx:id="tableColumnIdProduto" prefWidth="75.0" text="Código" />
+          <TableColumn fx:id="tableColumnDescricaoInterna" prefWidth="152.79998779296875" text="Descrição interna" />
+            <TableColumn fx:id="tableColumnDataCadastro" prefWidth="121.60003662109375" text="Data de cadastro" />
+            <TableColumn fx:id="tableColumnGrupo" prefWidth="58.39996337890625" text="Grupo" />
+            <TableColumn fx:id="tableColumnSituacao" prefWidth="110.39996337890625" text="Situação" />
+            <TableColumn fx:id="tableColumnSaldo" prefWidth="80.80010986328125" text="Saldo" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
