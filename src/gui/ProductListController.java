@@ -4,12 +4,14 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
+import application.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import model.entities.Product;
 
 public class ProductListController implements Initializable {
@@ -27,6 +29,9 @@ public class ProductListController implements Initializable {
 		tableColumnGrupo.setCellValueFactory(new PropertyValueFactory<>("grupo"));
 		tableColumnSituacao.setCellValueFactory(new PropertyValueFactory<>("situacao"));
 		tableColumnSaldo.setCellValueFactory(new PropertyValueFactory<>("saldo"));
+		
+		Stage stage = (Stage) Main.getMainScene().getWindow();
+		tableViewProduct.prefHeightProperty().bind(stage.heightProperty());
 	}
 	
 	//*************************************************************************************************************************************************************
