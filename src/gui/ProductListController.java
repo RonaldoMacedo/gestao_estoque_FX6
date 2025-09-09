@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -80,5 +81,9 @@ public class ProductListController implements Initializable {
 	
 	@FXML
 	private TableColumn<Product, Integer> tableColumnSaldo;
+	
+	//*************************************************************************************************************************************************************
+	
+	private ObservableList<Product> obsList;
 
 }
