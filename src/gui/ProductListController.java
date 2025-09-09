@@ -13,8 +13,17 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.entities.Product;
+import model.services.ProductService;
 
 public class ProductListController implements Initializable {
+	
+	private ProductService service;
+	
+	public void setProductService(ProductService service) {
+		this.service = service;
+	}
+	
+	//*************************************************************************************************************************************************************
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
