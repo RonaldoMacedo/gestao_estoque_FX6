@@ -2,9 +2,11 @@ package gui;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -85,5 +87,14 @@ public class ProductListController implements Initializable {
 	//*************************************************************************************************************************************************************
 	
 	private ObservableList<Product> obsList;
+	
+	public void updateTableView() {
+		if(service == null) {
+			throw new IllegalStateException("Service was null");
+		}
+		List<Product> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		tableViewProduct.setItems(obsList);
+	}
 
 }
