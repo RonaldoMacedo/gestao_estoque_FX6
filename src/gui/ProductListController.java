@@ -63,7 +63,8 @@ public class ProductListController implements Initializable {
 	@FXML
 	public void onBtNovoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/ProductForm.fxml", parentStage);
+		Product obj = new Product();
+		createDialogForm(obj, "/gui/ProductForm.fxml", parentStage);
 		
 	}
 	
@@ -110,10 +111,14 @@ public class ProductListController implements Initializable {
 	
 	//************************************************************************************************************************************************************
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Product obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			ProductFormController controller = loader.getController();
+			controller.setProduct(obj);
+			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Digite os dados do produto");
