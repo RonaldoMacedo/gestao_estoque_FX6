@@ -3,6 +3,7 @@ package gui;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -24,10 +25,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.converter.LocalDateTimeStringConverter;
 import model.entities.Product;
 import model.services.ProductService;
 
 public class ProductListController implements Initializable {
+	
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 	
 	private ProductService service;
 	
@@ -63,7 +67,7 @@ public class ProductListController implements Initializable {
 	@FXML
 	public void onBtNovoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		Product obj = new Product();
+		Product obj = new Product(LocalDateTime.now());
 		createDialogForm(obj, "/gui/ProductForm.fxml", parentStage);
 		
 	}
