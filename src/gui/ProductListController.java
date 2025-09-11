@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -67,7 +68,7 @@ public class ProductListController implements Initializable {
 	@FXML
 	public void onBtNovoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		Product obj = new Product(LocalDateTime.now());
+		Product obj = new Product(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 		createDialogForm(obj, "/gui/ProductForm.fxml", parentStage);
 		
 	}
