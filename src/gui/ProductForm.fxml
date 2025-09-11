@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="327.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="327.0" prefWidth="586.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductFormController">
    <children>
       <GridPane layoutX="45.0" layoutY="58.0" prefHeight="210.0" prefWidth="510.0">
         <columnConstraints>
@@ -32,26 +32,26 @@
             <Label text="Data do cadastro" GridPane.rowIndex="2" />
             <Label text="Grupo" GridPane.rowIndex="3" />
             <Label text="Situação" GridPane.rowIndex="4" />
-            <TextField editable="false" GridPane.columnIndex="1" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="txtCodigo" editable="false" GridPane.columnIndex="1" />
+            <TextField fx:id="txtDescricaoInterna" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="txtDataCadastro" editable="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="txtGrupo" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextField fx:id="txtSituacao" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <HBox prefHeight="34.0" prefWidth="148.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <children>
-                  <Button mnemonicParsing="false" text="Salvar">
+                  <Button fx:id="btSalvar" mnemonicParsing="false" onAction="#onBtSalvarAction" text="Salvar">
                      <HBox.margin>
                         <Insets top="5.0" />
                      </HBox.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Cancelar">
+                  <Button fx:id="onBtCancelar" mnemonicParsing="false" onAction="#onBtCancelarAction" text="Cancelar">
                      <HBox.margin>
                         <Insets left="25.0" top="5.0" />
                      </HBox.margin>
                   </Button>
                </children>
             </HBox>
-            <Label textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="lblErro" textFill="RED" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>
