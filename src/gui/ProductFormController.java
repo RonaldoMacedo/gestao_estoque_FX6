@@ -1,6 +1,7 @@
 package gui;
 
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 import gui.util.Constraints;
@@ -13,10 +14,23 @@ import model.entities.Product;
 
 public class ProductFormController implements Initializable {
 	
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+
 	private Product entity;
 	
 	public void setProduct(Product entity) {
 		this.entity = entity;
+	}
+	
+	public void updateFormData() {
+		if(entity == null) {
+			throw new IllegalStateException("Entity was null");
+		}
+		txtCodigo.setText(String.valueOf(entity.getIdProduto()));
+		txtDescricaoInterna.setText(entity.getDescricaoInterna());
+		txtDataCadastro.setText(String.valueOf(entity.getDataCadastro()));
+		txtGrupo.setText(entity.getGrupo());
+		txtSituacao.setText(entity.getSituacao());
 	}
 	
 	//*************************************************************************************************************************************************************
