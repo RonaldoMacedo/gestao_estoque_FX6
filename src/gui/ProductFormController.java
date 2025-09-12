@@ -122,8 +122,8 @@ public class ProductFormController implements Initializable {
 	private Button onBtCancelar;
 	
 	@FXML
-	public void onBtCancelarAction() {
-		System.out.println("Cancelar");
+	public void onBtCancelarAction(ActionEvent event) {
+		Utils.currentStage(event).close();
 	}
 	
 	//*************************************************************************************************************************************************************
