@@ -1,10 +1,13 @@
 package gui;
 
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
 import gui.util.Constraints;
+import gui.util.Utils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -86,9 +89,20 @@ public class ProductFormController implements Initializable {
 	
 	@FXML
 	public void onBtSalvarAction() {
-		System.out.println("Salvar");
+		entity = getFormData();
+		service.saveOrUpdate(entity);
 	}
 	
+	private Product getFormData() {
+		Product obj = new Product();
+		obj.setIdProduto(Utils.tryParseToInt(txtCodigo.getText()));
+		obj.setDescricaoInterna(txtDescricaoInterna.getText());
+		obj.setDataCadastro(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+		obj.setGrupo(txtGrupo.getText());
+		obj.setSituacao(txtSituacao.getText());
+		return obj;
+	}
+
 	@FXML
 	private Button onBtCancelar;
 	
