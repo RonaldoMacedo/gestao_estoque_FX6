@@ -11,16 +11,29 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Product;
+import model.services.ProductService;
 
 public class ProductFormController implements Initializable {
 	
 	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+	
+	//*************************************************************************************************************************************************************
 
 	private Product entity;
 	
 	public void setProduct(Product entity) {
 		this.entity = entity;
 	}
+	
+	//*************************************************************************************************************************************************************
+	
+	private ProductService service;
+	
+	public void setProductService(ProductService service) {
+		this.service = service;
+	}
+	
+	//*************************************************************************************************************************************************************
 	
 	public void updateFormData() {
 		if(entity == null) {
