@@ -6,13 +6,17 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
+import db.DbException;
+import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import model.entities.Product;
 import model.services.ProductService;
 
@@ -88,9 +92,20 @@ public class ProductFormController implements Initializable {
 	private Button btSalvar;
 	
 	@FXML
-	public void onBtSalvarAction() {
-		entity = getFormData();
-		service.saveOrUpdate(entity);
+	public void onBtSalvarAction(ActionEvent event) {
+		if(entity == null) {
+			throw new IllegalStateException("Entity was null");
+		}
+		if(service == null) {
+			throw new IllegalStateException("Service was null");
+		}
+		try {
+			entity = getFormData();
+			service.saveOrUpdate(entity);
+			Utils.currentStage(event).close();
+		}catch(DbException e) {
+			Alerts.showAlerts("Error saving object", null, e.getMessage(), AlertType.ERROR);
+		}
 	}
 	
 	private Product getFormData() {
