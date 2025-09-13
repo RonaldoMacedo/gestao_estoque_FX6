@@ -27,7 +27,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.util.converter.LocalDateTimeStringConverter;
 import model.entities.Product;
 import model.services.ProductService;
 
@@ -132,6 +131,7 @@ public class ProductListController implements Initializable, DataChangeListener 
 			ProductFormController controller = loader.getController();
 			controller.setProduct(obj);
 			controller.setProductService(new ProductService());
+			controller.subscribeDataChangeListener(this);
 			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
