@@ -114,12 +114,20 @@ public class ProductFormController implements Initializable {
 		try {
 			entity = getFormData();
 			service.saveOrUpdate(entity);
+			notifyDataChangeListeners();
 			Utils.currentStage(event).close();
 		}catch(DbException e) {
 			Alerts.showAlerts("Error saving object", null, e.getMessage(), AlertType.ERROR);
 		}
 	}
 	
+	private void notifyDataChangeListeners() {
+		for(DataChangeListener listener : dataChangeListeners) {
+			listener.onDataChanged();
+		}
+		
+	}
+
 	private Product getFormData() {
 		Product obj = new Product();
 		obj.setIdProduto(Utils.tryParseToInt(txtCodigo.getText()));
