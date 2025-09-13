@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -30,7 +31,7 @@ import javafx.util.converter.LocalDateTimeStringConverter;
 import model.entities.Product;
 import model.services.ProductService;
 
-public class ProductListController implements Initializable {
+public class ProductListController implements Initializable, DataChangeListener {
 	
 	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
 	
@@ -61,7 +62,14 @@ public class ProductListController implements Initializable {
 	}
 	
 	//************************************************************************************************************************************************************
-
+	
+	@Override
+	public void onDataChanged() {
+		updateTableView();
+	}
+	
+	//************************************************************************************************************************************************************
+	
 	@FXML
 	private Button btNovo;
 	
@@ -137,5 +145,7 @@ public class ProductListController implements Initializable {
 			Alerts.showAlerts("IOException", "Error loading view", e.getMessage(), AlertType.ERROR);
 		}
 	}
+
+	
 
 }
