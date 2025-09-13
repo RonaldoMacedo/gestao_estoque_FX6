@@ -4,19 +4,22 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import db.DbException;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Constraints;
 import gui.util.Utils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Alert.AlertType;
 import model.entities.Product;
 import model.services.ProductService;
 
@@ -41,6 +44,15 @@ public class ProductFormController implements Initializable {
 	}
 	
 	//*************************************************************************************************************************************************************
+	
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
+	
+	public void subscribeDataChangeListener(DataChangeListener listener) {
+		dataChangeListeners.add(listener);
+	}
+	
+	//*************************************************************************************************************************************************************
+	
 	
 	public void updateFormData() {
 		if(entity == null) {
