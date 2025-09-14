@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import db.DbException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
@@ -28,6 +29,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.entities.Product;
+import model.exceptions.ValidationException;
 import model.services.ProductService;
 
 public class ProductListController implements Initializable, DataChangeListener {
@@ -84,6 +86,11 @@ public class ProductListController implements Initializable, DataChangeListener 
 	
 	@FXML
 	private Button btAtualizar;
+	
+	@FXML
+	public void onBtAtualizarAction() {
+		System.out.println("Atualizar um produto");
+	}
 	
 	//************************************************************************************************************************************************************
 	
