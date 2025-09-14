@@ -21,6 +21,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Product;
+import model.exceptions.ValidationException;
 import model.services.ProductService;
 
 public class ProductFormController implements Initializable {
@@ -130,11 +131,22 @@ public class ProductFormController implements Initializable {
 
 	private Product getFormData() {
 		Product obj = new Product();
+		
+		ValidationException exception = new ValidationException("Validation error");
+		
 		obj.setIdProduto(Utils.tryParseToInt(txtCodigo.getText()));
+		if(txtDescricaoInterna.getText() == null || txtDescricaoInterna.getText().trim().equals("")) {
+			exception.addError("descricaoInterna", "Nome do produto obrigatório");
+		}
 		obj.setDescricaoInterna(txtDescricaoInterna.getText());
 		obj.setDataCadastro(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 		obj.setGrupo(txtGrupo.getText());
 		obj.setSituacao(txtSituacao.getText());
+		
+		if(exception.getErrors().size() > 0) {
+			throw exception;
+		}
+		
 		return obj;
 	}
 
