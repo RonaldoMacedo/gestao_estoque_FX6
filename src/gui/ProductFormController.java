@@ -122,6 +122,8 @@ public class ProductFormController implements Initializable {
 			Utils.currentStage(event).close();
 		}catch(DbException e) {
 			Alerts.showAlerts("Error saving object", null, e.getMessage(), AlertType.ERROR);
+		}catch(ValidationException e) {
+			setErrorMessages(e.getErrors());
 		}
 	}
 	
