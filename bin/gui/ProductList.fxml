@@ -33,7 +33,7 @@
             <TableColumn fx:id="tableColumnGrupo" prefWidth="58.39996337890625" text="Grupo" />
             <TableColumn fx:id="tableColumnSituacao" prefWidth="110.39996337890625" text="Situação" />
             <TableColumn fx:id="tableColumnSaldo" prefWidth="80.80010986328125" text="Saldo" />
-            <TableColumn prefWidth="75.0" />
+            <TableColumn fx:id="tableColumnEditar" prefWidth="75.0" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -116,6 +116,9 @@ public class ProductListController implements Initializable, DataChangeListener 
 	@FXML
 	private TableColumn<Product, Integer> tableColumnSaldo;
 	
+	@FXML
+	private TableColumn<Product, Product> tableColumnEditar;
+	
 	//************************************************************************************************************************************************************
 	
 	private ObservableList<Product> obsList;
