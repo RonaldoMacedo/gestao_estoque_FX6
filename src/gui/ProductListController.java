@@ -79,7 +79,7 @@ public class ProductListController implements Initializable, DataChangeListener 
 	@FXML
 	public void onBtNovoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		Product obj = new Product(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+		Product obj = new Product();
 		createDialogForm(obj, "/gui/ProductForm.fxml", parentStage);
 		
 	}
