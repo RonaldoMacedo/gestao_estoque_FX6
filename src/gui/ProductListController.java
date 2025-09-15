@@ -90,9 +90,8 @@ public class ProductListController implements Initializable, DataChangeListener 
 	private Button btAtualizar;
 	
 	@FXML
-	public void onBtAtualizarAction(ActionEvent event) {
-		Stage parentStage = Utils.currentStage(event);
-		createDialogForm(null, "/gui/ProductForm.fxml", parentStage);
+	public void onBtAtualizarAction() {
+		System.out.println("Atualizar");
 	}
 	
 	//************************************************************************************************************************************************************
