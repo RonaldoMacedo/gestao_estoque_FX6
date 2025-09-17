@@ -1,10 +1,13 @@
 package model.entities;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-public class Product {
-	
+public class Product implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
 	private Integer idProduto;
 	private String descricaoInterna;
 	private LocalDateTime dataCadastro;
@@ -25,6 +28,10 @@ public class Product {
 		this.grupo = grupo;
 		this.situacao = situacao;
 		this.saldo = saldo;
+	}
+
+	public static long getSerialversionuid() {
+		return serialVersionUID;
 	}
 
 	public Integer getIdProduto() {
