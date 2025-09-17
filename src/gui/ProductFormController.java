@@ -63,8 +63,7 @@ public class ProductFormController implements Initializable {
 		}
 		txtCodigo.setText(String.valueOf(entity.getIdProduto()));
 		txtDescricaoInterna.setText(entity.getDescricaoInterna());
-		entity.getDataCadastro();
-		txtDataCadastro.setText(String.valueOf(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS)));
+		txtDataCadastro.setText(String.valueOf(entity.getDataCadastro()));
 		txtGrupo.setText(entity.getGrupo());
 		txtSituacao.setText(entity.getSituacao());
 	}

@@ -26,10 +26,6 @@ public class Product {
 		this.situacao = situacao;
 		this.saldo = saldo;
 	}
-	
-	public Product(LocalDateTime dataCadastro) {
-		this.dataCadastro = dataCadastro;
-	}
 
 	public Integer getIdProduto() {
 		return idProduto;
