@@ -212,6 +212,7 @@ public class ProductListController implements Initializable, DataChangeListener 
 			}
 			try {
 				service.remove(obj);
+				Alerts.showAlerts(null, "Produto apagado com sucesso", null, AlertType.INFORMATION);
 				updateTableView();
 			}catch(DbIntegrityException e) {
 				Alerts.showAlerts("Erro ao apagar produto", null, e.getMessage(), AlertType.ERROR);
