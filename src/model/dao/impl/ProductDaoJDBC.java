@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,12 +28,13 @@ public class ProductDaoJDBC implements ProductDao {
 	public void insert(Product obj) {
 		PreparedStatement ps = null;
 		try {
-			ps = conn.prepareStatement("insert into produto(descricao_interna, grupo, situacao)\r\n"
-					+ "	values(?, ?, ?)",
+			ps = conn.prepareStatement("insert into produto(descricao_interna, data_cadastro, grupo, situacao)\r\n"
+					+ "	values(?, ?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, obj.getDescricaoInterna());
-			ps.setString(2, obj.getGrupo().toString());
-			ps.setString(3, obj.getSituacao().toString());
+			ps.setString(2, obj.getDataCadastro().toString());
+			ps.setString(3, obj.getGrupo().toString());
+			ps.setString(4, obj.getSituacao().toString());
 			
 			int rowsAffected = ps.executeUpdate();
 			
@@ -40,6 +42,7 @@ public class ProductDaoJDBC implements ProductDao {
 				ResultSet rs = ps.getGeneratedKeys();
 				if(rs.next()) {
 					int id = rs.getInt(1);
+					obj.setIdProduto(id);
 				}
 				DB.closeResultSet(rs);
 			}
@@ -122,7 +125,9 @@ public class ProductDaoJDBC implements ProductDao {
 
 	private Product instantiateProduct(ResultSet rs) throws SQLException {
 		Product obj = new Product();
+		obj.setIdProduto(Integer.valueOf(rs.getString("id_produto")));
 		obj.setDescricaoInterna(rs.getString("descricao_interna"));
+		obj.setDataCadastro(LocalDateTime.parse(rs.getString("data_cadastro")));
 		obj.setGrupo(rs.getString("grupo"));
 		obj.setSituacao(rs.getString("situacao"));
 		return obj;
