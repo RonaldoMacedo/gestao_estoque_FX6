@@ -5,9 +5,11 @@ import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import application.Main;
+import db.DbIntegrityException;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
@@ -21,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -117,6 +120,9 @@ public class ProductListController implements Initializable, DataChangeListener 
 	@FXML
 	private TableColumn<Product, Product> tableColumnEditar;
 	
+	@FXML
+	private TableColumn<Product, Product> tableColumnRemover;
+	
 	//************************************************************************************************************************************************************
 	
 	private ObservableList<Product> obsList;
@@ -175,6 +181,41 @@ public class ProductListController implements Initializable, DataChangeListener 
 				button.setOnAction(event -> createDialogForm(obj, "/gui/ProductForm.fxml", Utils.currentStage(event)));
 			}
 		});
+	}
+	
+	private void initRemoverButtons() {
+		tableColumnRemover.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnRemover.setCellFactory(param -> new TableCell<Product, Product>(){
+			private final Button button = new Button("Remover");
+			
+			@Override
+			protected void updateItem(Product obj, boolean empty) {
+				super.updateItem(obj, empty);
+				
+				if(obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(event -> removeEntity(obj));
+			}
+		});
+	}
+
+	private void removeEntity(Product obj) {
+		Optional<ButtonType> result = Alerts.showConfirmation("Confirmação", "Tem certeza que quer apagar o produto?");
+		
+		if(result.get() == ButtonType.OK) {
+			if(service == null) {
+				throw new IllegalStateException("Service was null");
+			}
+			try {
+				service.remove(obj);
+				updateTableView();
+			}catch(DbIntegrityException e) {
+				Alerts.showAlerts("Erro ao apagar produto", null, e.getMessage(), AlertType.ERROR);
+			}
+		}
 	}
 
 }
