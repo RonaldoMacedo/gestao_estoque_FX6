@@ -27,13 +27,12 @@ public class ProductDaoJDBC implements ProductDao {
 	public void insert(Product obj) {
 		PreparedStatement ps = null;
 		try {
-			ps = conn.prepareStatement("insert into produto(descricao_interna, data_cadastro, grupo, situacao)\r\n"
-					+ "	values(?, ?, ?, ?)",
+			ps = conn.prepareStatement("insert into produto(descricao_interna, grupo, situacao)\r\n"
+					+ "	values(?, ?, ?)",
 					Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, obj.getDescricaoInterna());
-			ps.setString(2, obj.getDataCadastro().toString());
-			ps.setString(3, obj.getGrupo().toString());
-			ps.setString(4, obj.getSituacao().toString());
+			ps.setString(2, obj.getGrupo().toString());
+			ps.setString(3, obj.getSituacao().toString());
 			
 			int rowsAffected = ps.executeUpdate();
 			
