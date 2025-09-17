@@ -135,6 +135,7 @@ public class ProductListController implements Initializable, DataChangeListener 
 		obsList = FXCollections.observableArrayList(list);
 		tableViewProduct.setItems(obsList);
 		initEditarButtons();
+		initRemoverButtons();
 	}
 	
 	//************************************************************************************************************************************************************
