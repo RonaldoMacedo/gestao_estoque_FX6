@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,6 +18,8 @@ import model.dao.ProductDao;
 import model.entities.Product;
 
 public class ProductDaoJDBC implements ProductDao {
+	
+	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 	
 	private Connection conn;
 	
@@ -127,7 +130,7 @@ public class ProductDaoJDBC implements ProductDao {
 		Product obj = new Product();
 		obj.setIdProduto(Integer.valueOf(rs.getString("id_produto")));
 		obj.setDescricaoInterna(rs.getString("descricao_interna"));
-		obj.setDataCadastro(LocalDateTime.parse(rs.getString("data_cadastro")));
+		obj.setDataCadastro(LocalDateTime.parse(rs.getString("data_cadastro"), dtf));
 		obj.setGrupo(rs.getString("grupo"));
 		obj.setSituacao(rs.getString("situacao"));
 		return obj;
