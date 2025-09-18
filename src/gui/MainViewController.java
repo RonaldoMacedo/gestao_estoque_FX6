@@ -48,6 +48,11 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemListarMarcas;
 	
 	@FXML
+	public void onMenuItemListarMarcasAction() {
+		loadView("/gui/BrandList.fxml", x -> {});
+	}
+	
+	@FXML
 	private MenuItem menuItemListarFornecedores;
 	
 	@FXML
