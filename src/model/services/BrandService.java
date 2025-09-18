@@ -1,17 +1,17 @@
 package model.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import model.dao.BrandDao;
+import model.dao.DaoFactory;
 import model.entities.Brand;
 
 public class BrandService {
 	
+	private BrandDao dao = DaoFactory.createBrandDao();
+	
 	public List<Brand> findAll(){
-		List<Brand> list = new ArrayList<>();
-		list.add(new Brand(1, "Descarpack"));
-		list.add(new Brand(2, "Medix"));
-		return list;
+		return dao.findAll();
 	}
 
 }
