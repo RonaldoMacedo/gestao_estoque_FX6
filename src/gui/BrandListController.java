@@ -66,7 +66,8 @@ public class BrandListController implements Initializable {
 	@FXML
 	public void onBtNovoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/BrandForm.fxml", parentStage);
+		Brand obj = new Brand();
+		createDialogForm(obj, "/gui/BrandForm.fxml", parentStage);
 	}
 	
 	@FXML
@@ -78,7 +79,7 @@ public class BrandListController implements Initializable {
 	@FXML
 	private TableColumn<Brand, String> tableColumnNomeFantasia;
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Brand obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
@@ -90,6 +91,10 @@ public class BrandListController implements Initializable {
 			dialogStage.initOwner(parentStage);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
+			
+			BrandFormController controller = loader.getController();
+			controller.setBrand(obj);
+			controller.updateFormData();
 			
 		}catch(IOException e) {
 			Alerts.showAlerts("IOException", "Erro ao carregar a tela", e.getMessage(), AlertType.ERROR);
