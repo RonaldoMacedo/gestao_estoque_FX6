@@ -84,6 +84,11 @@ public class BrandListController implements Initializable {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
 			
+			BrandFormController controller = loader.getController();
+			controller.setBrand(obj);
+			controller.setBrandService(new BrandService());
+			controller.updateFormData();
+			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Digite os dados da nova marca");
 			dialogStage.setScene(new Scene(pane));
@@ -91,10 +96,6 @@ public class BrandListController implements Initializable {
 			dialogStage.initOwner(parentStage);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
-			
-			BrandFormController controller = loader.getController();
-			controller.setBrand(obj);
-			controller.updateFormData();
 			
 		}catch(IOException e) {
 			Alerts.showAlerts("IOException", "Erro ao carregar a tela", e.getMessage(), AlertType.ERROR);

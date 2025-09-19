@@ -13,5 +13,13 @@ public class BrandService {
 	public List<Brand> findAll(){
 		return dao.findAll();
 	}
+	
+	public void saveOrUpdate(Brand obj) {
+		if(obj.getIdMarca() == null) {
+			dao.insert(obj);
+		}else {
+			dao.update(obj);
+		}
+	}
 
 }
