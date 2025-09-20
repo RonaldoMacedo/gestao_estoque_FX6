@@ -57,7 +57,23 @@ public class BrandDaoJDBC implements BrandDao {
 	
 	@Override
 	public void update(Brand obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement("update marca "
+					+ "set nome_fantasia=? "
+					+ "where id_marca=?");
+			ps.setString(1, obj.getNomeFantasia());
+			ps.setInt(2, obj.getIdMarca());
+			
+			ps.executeUpdate();
+				
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(ps);
+		}
 		
 	}
 

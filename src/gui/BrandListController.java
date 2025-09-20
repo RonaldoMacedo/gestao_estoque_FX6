@@ -9,6 +9,7 @@ import application.Main;
 import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
+import javafx.beans.property.ReadOnlyObjectWrapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -18,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -44,6 +46,7 @@ public class BrandListController implements Initializable, DataChangeListener {
 		List<Brand> list = service.findAll();
 		obsList = FXCollections.observableArrayList(list);
 		tableViewBrand.setItems(obsList);
+		initEditarButtons();
 	}
 
 	@Override
@@ -80,6 +83,12 @@ public class BrandListController implements Initializable, DataChangeListener {
 	@FXML
 	private TableColumn<Brand, String> tableColumnNomeFantasia;
 	
+	@FXML
+	private TableColumn<Brand, Brand> tableColumnEditar;
+	
+	@FXML
+	private TableColumn<Brand, Brand> tableColumnApagar;
+	
 	private void createDialogForm(Brand obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
@@ -107,6 +116,25 @@ public class BrandListController implements Initializable, DataChangeListener {
 	@Override
 	public void onDataChanged() {
 		updateTableView();		
+	}
+	
+	private void initEditarButtons() {
+		tableColumnEditar.setCellValueFactory(param -> new ReadOnlyObjectWrapper<>(param.getValue()));
+		tableColumnEditar.setCellFactory(param -> new TableCell<Brand, Brand>() {
+			private final Button button = new Button("Editar");
+			
+			@Override
+			protected void updateItem(Brand obj, boolean empty) {
+				super.updateItem(obj, empty);
+				
+				if(obj == null) {
+					setGraphic(null);
+					return;
+				}
+				setGraphic(button);
+				button.setOnAction(event -> createDialogForm(obj, "/gui/BrandForm.fxml", Utils.currentStage(event)));
+			}
+		});
 	}
 
 }
