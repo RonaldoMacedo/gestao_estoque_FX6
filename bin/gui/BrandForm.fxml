@@ -42,7 +42,7 @@
             </HBox>
             <TextField fx:id="txtCodigo" editable="false" GridPane.columnIndex="1" />
             <TextField fx:id="txtNomeFantasia" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label textFill="#fa0000" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="lblErro" textFill="#fa0000" GridPane.columnIndex="2" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

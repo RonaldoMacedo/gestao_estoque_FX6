@@ -3,7 +3,9 @@ package gui;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import gui.listeners.DataChangeListener;
 import gui.util.Constraints;
@@ -12,8 +14,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Brand;
+import model.exceptions.ValidationException;
 import model.services.BrandService;
 
 public class BrandFormController implements Initializable {
@@ -50,10 +54,14 @@ public class BrandFormController implements Initializable {
 	
 	@FXML
 	public void onBtSalvarAction(ActionEvent event) {
-		entity = getFormData();
-		service.saveOrUpdate(entity);
-		Utils.currentStage(event).close();
-		notifyDataChangeListeners();
+		try {
+			entity = getFormData();
+			service.saveOrUpdate(entity);
+			Utils.currentStage(event).close();
+			notifyDataChangeListeners();
+		}catch(ValidationException e) {
+			setErrorMessages(e.getErrors());
+		}
 	}
 	
 	private void notifyDataChangeListeners() {
@@ -71,6 +79,9 @@ public class BrandFormController implements Initializable {
 		Utils.currentStage(event).close();
 	}
 	
+	@FXML
+	private Label lblErro;
+	
 	public void updateFormData() {
 		if(entity == null) {
 			throw new IllegalStateException("Entity was null");
@@ -84,6 +95,15 @@ public class BrandFormController implements Initializable {
 	
 	private Brand getFormData() {
 		Brand obj = new Brand();
+		ValidationException exception = new ValidationException("Validation error");
+		
+		if(txtNomeFantasia.getText() == null || txtNomeFantasia.getText().trim().equals("")) {
+			exception.addError("nomeFantasia", "Nome da marca obrigatório");
+		}
+		if(exception.getErrors().size() > 0) {
+			throw exception;
+		}
+		
 		obj.setIdMarca(Utils.tryParseToInt(txtCodigo.getText()));
 		obj.setNomeFantasia(txtNomeFantasia.getText());
 		return obj;
@@ -93,6 +113,13 @@ public class BrandFormController implements Initializable {
 	
 	public void subscribeDataChangeListeners(DataChangeListener listener) {
 		dataChangeListeners.add(listener);
+	}
+	
+	private void setErrorMessages(Map<String, String> errors) {
+		Set<String> fields = errors.keySet();
+		if(fields.contains("nomeFantasia")) {
+			lblErro.setText(errors.get("nomeFantasia"));
+		}
 	}
 
 }
