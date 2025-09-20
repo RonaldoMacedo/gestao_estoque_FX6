@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -26,7 +27,7 @@ import javafx.stage.Stage;
 import model.entities.Brand;
 import model.services.BrandService;
 
-public class BrandListController implements Initializable {
+public class BrandListController implements Initializable, DataChangeListener {
 	
 	private BrandService service;
 	
@@ -88,6 +89,7 @@ public class BrandListController implements Initializable {
 			controller.setBrand(obj);
 			controller.setBrandService(new BrandService());
 			controller.updateFormData();
+			controller.subscribeDataChangeListeners(this);
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Digite os dados da nova marca");
@@ -100,6 +102,11 @@ public class BrandListController implements Initializable {
 		}catch(IOException e) {
 			Alerts.showAlerts("IOException", "Erro ao carregar a tela", e.getMessage(), AlertType.ERROR);
 		}
+	}
+
+	@Override
+	public void onDataChanged() {
+		updateTableView();		
 	}
 
 }

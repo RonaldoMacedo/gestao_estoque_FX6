@@ -1,8 +1,11 @@
 package gui;
 
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import gui.listeners.DataChangeListener;
 import gui.util.Constraints;
 import gui.util.Utils;
 import javafx.event.ActionEvent;
@@ -50,8 +53,16 @@ public class BrandFormController implements Initializable {
 		entity = getFormData();
 		service.saveOrUpdate(entity);
 		Utils.currentStage(event).close();
+		notifyDataChangeListeners();
 	}
 	
+	private void notifyDataChangeListeners() {
+		for(DataChangeListener listener : dataChangeListeners) {
+			listener.onDataChanged();
+		}
+		
+	}
+
 	@FXML
 	private Button btCancelar;
 	
@@ -76,6 +87,12 @@ public class BrandFormController implements Initializable {
 		obj.setIdMarca(Utils.tryParseToInt(txtCodigo.getText()));
 		obj.setNomeFantasia(txtNomeFantasia.getText());
 		return obj;
+	}
+	
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
+	
+	public void subscribeDataChangeListeners(DataChangeListener listener) {
+		dataChangeListeners.add(listener);
 	}
 
 }
