@@ -61,7 +61,7 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onMenuItemListarFornecedoresAction() {
-		loadView("/gui/SupplierList.fxml", null);
+		loadView("/gui/SupplierList.fxml", x -> {});
 	}
 	
 	@FXML

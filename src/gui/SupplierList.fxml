@@ -9,8 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SupplierListController">
    <children>
       <Label text="Fornecedores cadastrados">
          <font>
@@ -22,17 +21,17 @@
       </Label>
       <ToolBar prefHeight="40.0" prefWidth="200.0">
         <items>
-          <Button mnemonicParsing="false" text="Novo" />
+          <Button fx:id="btNovo" mnemonicParsing="false" onAction="#onBtNovoAction" text="Novo" />
         </items>
       </ToolBar>
-      <TableView prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewSupplier" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Código" />
-          <TableColumn prefWidth="75.0" text="Razão social" />
-            <TableColumn prefWidth="75.0" text="Apelido" />
-            <TableColumn prefWidth="75.0" text="CNPJ" />
-            <TableColumn prefWidth="75.0" text="Data do cadastro" />
-            <TableColumn prefWidth="75.0" text="Situação" />
+          <TableColumn fx:id="tableColumnIdFornecedor" prefWidth="75.0" text="Código" />
+          <TableColumn fx:id="tableColumnRazaoSocial" prefWidth="75.0" text="Razão social" />
+            <TableColumn fx:id="tableColumnApelido" prefWidth="75.0" text="Apelido" />
+            <TableColumn fx:id="tableColumnCNPJ" prefWidth="75.0" text="CNPJ" />
+            <TableColumn fx:id="tableColumnDataCadastro" prefWidth="75.0" text="Data do cadastro" />
+            <TableColumn fx:id="tableColumnSituacao" prefWidth="75.0" text="Situação" />
         </columns>
       </TableView>
    </children>
