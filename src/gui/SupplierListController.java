@@ -2,9 +2,12 @@ package gui;
 
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -13,8 +16,26 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.entities.Supplier;
+import model.services.SupplierService;
 
 public class SupplierListController implements Initializable{
+	
+	private SupplierService service;
+	
+	public void setSupplierService(SupplierService service) {
+		this.service = service;
+	}
+	
+	private ObservableList<Supplier> obsList;
+	
+	public void updateTableView() {
+		if(service == null) {
+			throw new IllegalStateException("Service was null");
+		}
+		List<Supplier> list = service.findAll();
+		obsList = FXCollections.observableArrayList(list);
+		tableViewSupplier.setItems(obsList);
+	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
