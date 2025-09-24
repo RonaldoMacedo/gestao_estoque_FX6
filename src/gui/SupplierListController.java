@@ -70,7 +70,8 @@ public class SupplierListController implements Initializable{
 	@FXML
 	public void onBtNovoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/SupplierForm.fxml", parentStage);
+		Supplier obj = new Supplier();
+		createDialogForm(obj, "/gui/SupplierForm.fxml", parentStage);
 	}
 	
 	@FXML
@@ -94,7 +95,7 @@ public class SupplierListController implements Initializable{
 	@FXML
 	private TableColumn<Supplier, String> tableColumnSituacao;
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Supplier obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
@@ -106,6 +107,11 @@ public class SupplierListController implements Initializable{
 			dialogStage.initOwner(parentStage);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
+			
+			SupplierFormController controller = loader.getController();
+			controller.setSupplier(obj);
+			controller.updateFormData();
+			
 		}catch(IOException e) {
 			Alerts.showAlerts("IOException", "Erro ao carregar a tela", e.getMessage(), AlertType.ERROR);
 		}
