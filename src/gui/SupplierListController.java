@@ -110,6 +110,7 @@ public class SupplierListController implements Initializable{
 			
 			SupplierFormController controller = loader.getController();
 			controller.setSupplier(obj);
+			controller.setSupplierService(new SupplierService());
 			controller.updateFormData();
 			
 		}catch(IOException e) {

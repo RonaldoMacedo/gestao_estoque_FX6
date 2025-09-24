@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,13 +29,62 @@ public class SupplierDaoJDBC implements SupplierDao {
 
 	@Override
 	public void insert(Supplier obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement("insert into fornecedor(razao_social, apelido, cnpj, data_cadastro, situacao)\r\n"
+					+ "	values(?, ?, ?, ?, ?)",
+					Statement.RETURN_GENERATED_KEYS);
+			ps.setString(1, obj.getRazaoSocial());
+			ps.setString(2, obj.getApelido());
+			ps.setString(3, obj.getCnpj());
+			ps.setString(4, obj.getDataCadastro().toString());
+			ps.setString(4, obj.getSituacao().toString());
+			
+			int rowsAffected = ps.executeUpdate();
+			
+			if(rowsAffected > 0) {
+				ResultSet rs = ps.getGeneratedKeys();
+				if(rs.next()) {
+					int id = rs.getInt(1);
+					obj.setIdFornecedor(id);
+				}
+				DB.closeResultSet(rs);
+			}
+			else {
+				throw new DbException("Unexpected error! No rows affected...");
+			}
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(ps);
+		}
 		
 	}
 
 	@Override
 	public void update(Supplier obj) {
-		// TODO Auto-generated method stub
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement("update fornecedor "
+					+ "set razao_social=?, apelido=?, cnpj=?, situacao=? "
+					+ "where id_fornecedor=?");
+			ps.setString(1, obj.getRazaoSocial());
+			ps.setString(2, obj.getApelido());
+			ps.setString(3, obj.getCnpj());
+			ps.setString(4, obj.getSituacao());
+			ps.setInt(5, obj.getIdFornecedor());
+			
+			ps.executeUpdate();
+				
+		}
+		catch (SQLException e) {
+			throw new DbException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(ps);
+		}
 		
 	}
 	
