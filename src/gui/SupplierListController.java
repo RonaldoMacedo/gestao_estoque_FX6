@@ -70,7 +70,8 @@ public class SupplierListController implements Initializable{
 	@FXML
 	public void onBtNovoAction(ActionEvent event) {
 		Stage parentStage = Utils.currentStage(event);
-		createDialogForm("/gui/SupplierForm.fxml", parentStage);
+		Supplier obj = new Supplier();
+		createDialogForm(obj, "/gui/SupplierForm.fxml", parentStage);
 	}
 	
 	@FXML
@@ -94,10 +95,14 @@ public class SupplierListController implements Initializable{
 	@FXML
 	private TableColumn<Supplier, String> tableColumnSituacao;
 	
-	private void createDialogForm(String absoluteName, Stage parentStage) {
+	private void createDialogForm(Supplier obj, String absoluteName, Stage parentStage) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(absoluteName));
 			Pane pane = loader.load();
+			
+			SupplierFormController controller = loader.getController();
+			controller.setSupplier(obj);
+			controller.updateFormData();
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Digite os dados do fornecedor");
