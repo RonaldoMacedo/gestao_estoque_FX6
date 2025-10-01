@@ -3,7 +3,9 @@ package gui;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import gui.util.Constraints;
 import gui.util.Utils;
@@ -14,6 +16,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Supplier;
+import model.exceptions.ValidationException;
 import model.services.SupplierService;
 
 public class SupplierFormController implements Initializable {
@@ -64,19 +67,32 @@ public class SupplierFormController implements Initializable {
 	
 	@FXML
 	public void onBtSalvarAction(ActionEvent event) {
-		entity = getFormData();
-		service.saveOrUpdate(entity);
-		Utils.currentStage(event).close();
+		try {
+			entity = getFormData();
+			service.saveOrUpdate(entity);
+			Utils.currentStage(event).close();
+		}catch(ValidationException e) {
+			setErrorMessage(e.getErrors());
+		}
 	}
 	
 	private Supplier getFormData() {
 		Supplier obj = new Supplier();
+		ValidationException exception = new ValidationException("Validation error");
+
 		obj.setIdFornecedor(Utils.tryParseToInt(txtCodigo.getText()));
+		if(txtRazaoSocial.getText() == null || txtRazaoSocial.getText().trim().equals("")) {
+			exception.addError("razaoSocial", "Campo obrigatório");
+		}
 		obj.setRazaoSocial(txtRazaoSocial.getText());
 		obj.setApelido(txtApelido.getText());
 		obj.setCnpj(txtCNPJ.getText());
 		obj.setDataCadastro(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 		obj.setSituacao(txtSituacao.getText());
+		
+		if(exception.getErrors().size() > 0) {
+			throw exception;
+		}
 		return obj;
 	}
 
@@ -101,6 +117,13 @@ public class SupplierFormController implements Initializable {
 		txtCNPJ.setText(entity.getCnpj());
 		txtDataCadastro.setText(String.valueOf(entity.getDataCadastro()));
 		txtSituacao.setText(entity.getSituacao());
+	}
+	
+	private void setErrorMessage(Map<String, String> errors) {
+		Set<String> fields = errors.keySet();
+		if(fields.contains("razaoSocial")) {
+			lblErro.setText(errors.get("razaoSocial"));
+		}
 	}
 
 }
