@@ -1,14 +1,20 @@
 package gui;
 
 import java.net.URL;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ResourceBundle;
 
+import gui.util.Constraints;
+import gui.util.Utils;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import model.entities.Supplier;
+import model.services.SupplierService;
 
 public class SupplierFormController implements Initializable {
 	
@@ -16,6 +22,12 @@ public class SupplierFormController implements Initializable {
 	
 	public void setSupplier(Supplier entity) {
 		this.entity = entity;
+	}
+	
+	private SupplierService service;
+	
+	public void setSupplierService(SupplierService service) {
+		this.service = service;
 	}
 
 	@Override
@@ -25,7 +37,7 @@ public class SupplierFormController implements Initializable {
 	}
 
 	private void initializeNodes() {
-		// TODO Auto-generated method stub
+		Constraints.setTextFieldMaxLength(txtApelido, 18);
 		
 	}
 	
@@ -51,16 +63,29 @@ public class SupplierFormController implements Initializable {
 	private Button btSalvar;
 	
 	@FXML
-	public void onBtSalvarAction() {
-		System.out.println("Salvar");
+	public void onBtSalvarAction(ActionEvent event) {
+		entity = getFormData();
+		service.saveOrUpdate(entity);
+		Utils.currentStage(event).close();
 	}
 	
+	private Supplier getFormData() {
+		Supplier obj = new Supplier();
+		obj.setIdFornecedor(Utils.tryParseToInt(txtCodigo.getText()));
+		obj.setRazaoSocial(txtRazaoSocial.getText());
+		obj.setApelido(txtApelido.getText());
+		obj.setCnpj(txtCNPJ.getText());
+		obj.setDataCadastro(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
+		obj.setSituacao(txtSituacao.getText());
+		return obj;
+	}
+
 	@FXML
 	private Button btCancelar;
 	
 	@FXML
-	public void onBtCancelarAction() {
-		System.out.println("Cancelar");
+	public void onBtCancelarAction(ActionEvent event) {
+		Utils.currentStage(event).close();
 	}
 	
 	@FXML

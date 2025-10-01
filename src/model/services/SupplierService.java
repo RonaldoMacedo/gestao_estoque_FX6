@@ -13,5 +13,13 @@ public class SupplierService {
 	public List<Supplier> findAll() {
 		return dao.findAll();
 	}
+	
+	public void saveOrUpdate(Supplier obj) {
+		if(obj.getIdFornecedor() == null) {
+			dao.insert(obj);
+		}else {
+			dao.update(obj);
+		}
+	}
 
 }

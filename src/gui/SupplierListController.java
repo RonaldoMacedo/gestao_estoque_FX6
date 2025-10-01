@@ -111,6 +111,7 @@ public class SupplierListController implements Initializable{
 			dialogStage.initOwner(parentStage);
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.showAndWait();
+			
 		}catch(IOException e) {
 			Alerts.showAlerts("IOException", "Erro ao carregar a tela", e.getMessage(), AlertType.ERROR);
 		}
