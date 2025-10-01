@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import application.Main;
+import gui.listeners.DataChangeListener;
 import gui.util.Alerts;
 import gui.util.Utils;
 import javafx.collections.FXCollections;
@@ -27,7 +28,13 @@ import javafx.stage.Stage;
 import model.entities.Supplier;
 import model.services.SupplierService;
 
-public class SupplierListController implements Initializable{
+public class SupplierListController implements Initializable, DataChangeListener {
+	
+	@Override
+	public void onDataChanged() {
+		updateTableView();
+		
+	}
 	
 	private SupplierService service;
 	
@@ -104,6 +111,7 @@ public class SupplierListController implements Initializable{
 			controller.setSupplier(obj);
 			controller.updateFormData();
 			controller.setSupplierService(new SupplierService());
+			controller.subscribeDataChangeListener(this);
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Digite os dados do fornecedor");

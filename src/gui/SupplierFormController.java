@@ -3,10 +3,13 @@ package gui;
 import java.net.URL;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import gui.listeners.DataChangeListener;
 import gui.util.Constraints;
 import gui.util.Utils;
 import javafx.event.ActionEvent;
@@ -31,6 +34,12 @@ public class SupplierFormController implements Initializable {
 	
 	public void setSupplierService(SupplierService service) {
 		this.service = service;
+	}
+	
+	private List<DataChangeListener> dataChangeListeners = new ArrayList<>();
+	
+	public void subscribeDataChangeListener(DataChangeListener listener) {
+		dataChangeListeners.add(listener);
 	}
 
 	@Override
@@ -71,11 +80,19 @@ public class SupplierFormController implements Initializable {
 			entity = getFormData();
 			service.saveOrUpdate(entity);
 			Utils.currentStage(event).close();
+			notifyDataChangeListeners();
 		}catch(ValidationException e) {
 			setErrorMessage(e.getErrors());
 		}
 	}
 	
+	private void notifyDataChangeListeners() {
+		for(DataChangeListener listener : dataChangeListeners) {
+			listener.onDataChanged();
+		}
+		
+	}
+
 	private Supplier getFormData() {
 		Supplier obj = new Supplier();
 		ValidationException exception = new ValidationException("Validation error");
