@@ -102,7 +102,13 @@ public class SupplierFormController implements Initializable {
 			exception.addError("razaoSocial", "Campo obrigatório");
 		}
 		obj.setRazaoSocial(txtRazaoSocial.getText());
+		if(txtApelido.getText() == null || txtApelido.getText().trim().equals("")) {
+			exception.addError("apelido", "Campo obrigatório");
+		}
 		obj.setApelido(txtApelido.getText());
+		if(txtCNPJ.getText() == null || txtCNPJ.getText().trim().equals("")) {
+			exception.addError("CNPJ", "Campo obrigatório");
+		}
 		obj.setCnpj(txtCNPJ.getText());
 		obj.setDataCadastro(LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS));
 		obj.setSituacao(txtSituacao.getText());
@@ -122,7 +128,13 @@ public class SupplierFormController implements Initializable {
 	}
 	
 	@FXML
-	private Label lblErro;
+	private Label lblErroRazaoSocial;
+	
+	@FXML
+	private Label lblErroApelido;
+	
+	@FXML
+	private Label lblErroCNPJ;
 	
 	public void updateFormData() {
 		if(entity == null) {
@@ -139,7 +151,13 @@ public class SupplierFormController implements Initializable {
 	private void setErrorMessage(Map<String, String> errors) {
 		Set<String> fields = errors.keySet();
 		if(fields.contains("razaoSocial")) {
-			lblErro.setText(errors.get("razaoSocial"));
+			lblErroRazaoSocial.setText(errors.get("razaoSocial"));
+		}
+		if(fields.contains("apelido")) {
+			lblErroApelido.setText(errors.get("apelido"));
+		}
+		if(fields.contains("CNPJ")) {
+			lblErroCNPJ.setText(errors.get("CNPJ"));
 		}
 	}
 
