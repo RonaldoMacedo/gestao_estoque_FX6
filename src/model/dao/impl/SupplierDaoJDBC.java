@@ -38,7 +38,7 @@ public class SupplierDaoJDBC implements SupplierDao {
 			ps.setString(2, obj.getApelido());
 			ps.setString(3, obj.getCnpj());
 			ps.setString(4, obj.getDataCadastro().toString());
-			ps.setString(4, obj.getSituacao().toString());
+			ps.setString(5, obj.getSituacao().toString());
 			
 			int rowsAffected = ps.executeUpdate();
 			

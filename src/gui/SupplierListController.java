@@ -103,6 +103,7 @@ public class SupplierListController implements Initializable{
 			SupplierFormController controller = loader.getController();
 			controller.setSupplier(obj);
 			controller.updateFormData();
+			controller.setSupplierService(new SupplierService());
 			
 			Stage dialogStage = new Stage();
 			dialogStage.setTitle("Digite os dados do fornecedor");
