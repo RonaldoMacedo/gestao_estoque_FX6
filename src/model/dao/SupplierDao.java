@@ -9,5 +9,6 @@ public interface SupplierDao {
 	void insert(Supplier obj);
 	void update(Supplier obj);
 	List<Supplier> findAll();
+	void deleteByid(Integer id);
 
 }

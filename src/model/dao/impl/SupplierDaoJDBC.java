@@ -14,6 +14,7 @@ import java.util.Map;
 
 import db.DB;
 import db.DbException;
+import db.DbIntegrityException;
 import model.dao.SupplierDao;
 import model.entities.Supplier;
 
@@ -129,6 +130,23 @@ public class SupplierDaoJDBC implements SupplierDao {
 			DB.closeStatement(ps);
 			DB.closeResultSet(rs);
 		}
+	}
+
+	@Override
+	public void deleteByid(Integer id) {
+		PreparedStatement ps = null;
+		try {
+			ps = conn.prepareStatement("delete from fornecedor where id_fornecedor = ?");
+			ps.setInt(1, id);
+			ps.executeUpdate();
+		}
+		catch(SQLException e) {
+			throw new DbIntegrityException(e.getMessage());
+		}
+		finally {
+			DB.closeStatement(ps);
+		}
+		
 	}
 
 }

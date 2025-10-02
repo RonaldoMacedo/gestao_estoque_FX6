@@ -21,5 +21,9 @@ public class SupplierService {
 			dao.update(obj);
 		}
 	}
+	
+	public void remove(Supplier obj) {
+		dao.deleteByid(obj.getIdFornecedor());
+	}
 
 }
