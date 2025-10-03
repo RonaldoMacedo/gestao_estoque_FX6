@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.UnitListController">
    <children>
       <Label text="Unidades cadastradas">
          <padding>
@@ -17,12 +17,12 @@
             <Font name="System Bold" size="24.0" />
          </font>
       </Label>
-      <TableView prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tableViewUnit" prefHeight="200.0" prefWidth="200.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Código" />
-          <TableColumn prefWidth="75.0" text="Nome" />
-            <TableColumn prefWidth="75.0" text="Cidade" />
-            <TableColumn prefWidth="75.0" text="Situação" />
+          <TableColumn fx:id="tableColumnIdUnidade" prefWidth="75.0" text="Código" />
+          <TableColumn fx:id="tableColumnNomeUnidade" prefWidth="75.0" text="Nome" />
+            <TableColumn fx:id="tableColumnCidade" prefWidth="75.0" text="Cidade" />
+            <TableColumn fx:id="tableColumnSituacao" prefWidth="75.0" text="Situação" />
         </columns>
       </TableView>
    </children>
