@@ -77,7 +77,17 @@ public class MainViewController implements Initializable {
 	@FXML
 	private MenuItem menuItemNovoPedido;
 	
-	//*************************************************************************************************************************************************************
+	//************************************************************************************************************************************************************
+	
+	@FXML
+	private MenuItem menuItemUnidade;
+	
+	@FXML
+	public void onMenuItemListarUnidadesAction() {
+		System.out.println("Lista de unidades");
+	}
+	
+	//************************************************************************************************************************************************************
 	
 	@FXML
 	private MenuItem menuItemSobre;
@@ -87,7 +97,7 @@ public class MainViewController implements Initializable {
 		loadView("/gui/About.fxml", x -> {});
 	}
 	
-	//*************************************************************************************************************************************************************
+	//************************************************************************************************************************************************************
 
 	private synchronized <T> void loadView(String absoluteName, Consumer<T> initializingAction) {
 		try {
