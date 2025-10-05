@@ -19,6 +19,7 @@ import javafx.scene.layout.VBox;
 import model.services.BrandService;
 import model.services.ProductService;
 import model.services.SupplierService;
+import model.services.UnitService;
 
 public class MainViewController implements Initializable {
 
@@ -84,7 +85,10 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onMenuItemListarUnidadesAction() {
-		System.out.println("Lista de unidades");
+		loadView("/gui/UnitList.fxml", (UnitListController controller) -> {
+			controller.setUnitService(new UnitService());
+			controller.updateTableView();
+		});
 	}
 	
 	//************************************************************************************************************************************************************
