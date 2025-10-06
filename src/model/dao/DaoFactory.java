@@ -4,6 +4,7 @@ import db.DB;
 import model.dao.impl.BrandDaoJDBC;
 import model.dao.impl.ProductDaoJDBC;
 import model.dao.impl.SupplierDaoJDBC;
+import model.dao.impl.UnitDaoJDBC;
 
 public class DaoFactory {
 	
@@ -17,6 +18,10 @@ public class DaoFactory {
 	
 	public static SupplierDao createSupplierDao() {
 		return new SupplierDaoJDBC(DB.getConnection());
+	}
+	
+	public static UnitDao createUnitDao() {
+		return new UnitDaoJDBC(DB.getConnection());
 	}
 
 }

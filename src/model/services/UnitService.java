@@ -1,16 +1,17 @@
 package model.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import model.dao.DaoFactory;
+import model.dao.UnitDao;
 import model.entities.Unit;
 
 public class UnitService {
 	
+	private UnitDao dao = DaoFactory.createUnitDao();
+	
 	public List<Unit> findAll() {
-		List<Unit> list = new ArrayList<>();
-		list.add(new Unit(1, "Unidade 23 de maio", "Jundiai", "Ativo"));
-		return list;
+		return dao.findAll();
 	}
 
 }
